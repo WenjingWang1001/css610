@@ -2,7 +2,9 @@
 CSS 610 | Spring 2013
 =======================
 Jacqueline Kazil
-02/05/2013
+02/12/2013
+
+Homework assignment #3
 
 Platform:
     Mac OSX 10.6.8
