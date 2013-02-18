@@ -1,16 +1,32 @@
 import argparse as arg
+import random as r
 
 from ziagent_game.agents import Agent
 from ziagent_game.settings import *
 
 
+
 def setup_world(nagents=nagents):
     for x in range(nagents):
-        Agent(x)
-    print
+        Agent()
+    #Return all Agent objects
+    return Agent().__all__
+
+def setup_game(ngames):
+    for x in range(ngames):
+
+
+
+def play_games(ngames):
+    setup_games(ngames)
+
+
+
 
 def main(nagents):
-    setup_world()
+    setup_world(nagents)
+    play_games(nagents/2)
+
 
 def parse_args():
     """ 
