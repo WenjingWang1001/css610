@@ -26,3 +26,8 @@ class Game(object):
         # TODO: Add game logic. 
         a1_result = a2_result = 0
         return a1_result, a2_result
+
+    # TODO
+    # Game Strategies (usually identical across agents)
+    # Simplest case: 2 agents, 2 strategies
+    # Each agent selects its strategy autonomously (non-cooperative game theory)

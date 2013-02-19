@@ -6,6 +6,7 @@ __all__ = ['nagents', 'move_choices', 'get_id']
 
 nagents = 100
 
+# Game select
 move_choices = (
     'swerve',
     'straight',
