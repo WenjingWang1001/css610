@@ -26,3 +26,5 @@ class Agent(object):
 
     def get_id(self):
          self.id = get_id(self.__class__)
+
+    # TODO: Create evaluation of previous_moves
