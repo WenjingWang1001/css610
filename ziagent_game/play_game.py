@@ -8,7 +8,7 @@ from ziagent_game.common import *
 
 
 def setup_world(nagents=nagents):
-    for x in range(nagents):
+    for x in range(1,nagents):
         Agent()
     #Return all Agent objects
     return Agent().instances
@@ -46,8 +46,20 @@ def parse_args():
 
 def main(nagents):
     agents = setup_world(nagents)
-    games = play_games(agents)
-    print games
+
+    for x in range(100):
+        games = play_games(agents)
+
+        counter = 0
+        for k,v in agents.iteritems():
+            if v.total_payoff > 1:
+                print k, v.total_payoff
+            counter +=1
+
+        # for k,v in games.iteritems():
+        #     if counter < 5:
+        #         print k, v
+        #     counter += 1
 
 if __name__ == '__main__':
     args = parse_args()
