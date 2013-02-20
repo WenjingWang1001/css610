@@ -19,6 +19,12 @@ from ziagent_game.graphs import graph_moves, graph_payoffs
 
 def run_and_graph(p, r, m, g_type):
     play_game.run(players, rounds, memory)
+
+players = 50
+rounds = 10
+memory = 1
+g_type = 'Control Group'
+run_and_graph(players, rounds, memory, g_type)
 ```
 
 ### Original assigment
