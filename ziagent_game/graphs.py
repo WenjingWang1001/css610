@@ -1,8 +1,8 @@
-
-
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def graph_moves(swerves, straights):
 
@@ -14,10 +14,10 @@ def graph_moves(swerves, straights):
     x = swerves
     y = straights
 
-    fig = plt.figure(1, figsize=(10,10))
+    fig = plt.figure(1, figsize=(7,7))
 
-    from mpl_toolkits.axes_grid1 import make_axes_locatable
-
+    plt.xlabel('Agent swerve total')
+    plt.ylabel('Agent straight total')
     # the scatter plot:
     axScatter = plt.subplot(111)
     axScatter.scatter(x, y)
@@ -27,8 +27,8 @@ def graph_moves(swerves, straights):
     # The first argument of the new_vertical(new_horizontal) method is
     # the height (width) of the axes to be created in inches.
     divider = make_axes_locatable(axScatter)
-    axHistx = divider.append_axes("top", 1.2, pad=0.1, sharex=axScatter)
-    axHisty = divider.append_axes("right", 1.2, pad=0.1, sharey=axScatter)
+    axHistx = divider.append_axes("top", 1.5, pad=0.3, sharex=axScatter)
+    axHisty = divider.append_axes("right", 1.5, pad=0.3, sharey=axScatter)
 
     # make some labels invisible
     plt.setp(axHistx.get_xticklabels() + axHisty.get_yticklabels(),
@@ -37,7 +37,7 @@ def graph_moves(swerves, straights):
     # now determine nice limits by hand:
     binwidth = 0.25
     xymax = np.max( [np.max(np.fabs(x)), np.max(np.fabs(y))] )
-    lim = ( int(xymax/binwidth) + 1) * binwidth
+    lim = (int(xymax/binwidth) + 1) * binwidth
 
     bins = np.arange(0, lim + binwidth, binwidth)
     axHistx.hist(x, bins=bins)
@@ -52,7 +52,7 @@ def graph_moves(swerves, straights):
         tl.set_visible(False)
     
     # calculate realistic histogram scale
-    z = (len(x)/6)
+    z = (len(x)/10)
     z -= z % -5
     z = round(z, (len(str(z)) - 1) * -1)
     axHistx.set_yticks([0, z, z*2])
@@ -61,7 +61,6 @@ def graph_moves(swerves, straights):
     for tl in axHisty.get_yticklabels():
         tl.set_visible(False)
     axHisty.set_xticks([0, z, z*2])
-
 
     plt.draw()
     plt.show()
@@ -72,11 +71,12 @@ def graph_payoffs(payoffs, population):
     sigma = np.std(payoffs)
     x = mu + sigma*p_array
 
+
     # the histogram of the data
     bins =  population/20
     if bins < 10:
         bins = 10
-    n, bins, patches = plt.hist(payoffs, bins, normed=1, facecolor='green', alpha=0.75)
+    n, bins, patches = plt.hist(payoffs, bins, normed=1, facecolor='blue', alpha=0.65)
 
     # add a 'best fit' line
     y = mlab.normpdf(bins, mu, sigma)
@@ -86,7 +86,9 @@ def graph_payoffs(payoffs, population):
     plt.ylabel('Probability')
     plt.title('Payoffs: mu=%s, sigma=%s' % (population,round(sigma,2)))
 
-    plt.axis([mu - 3*sigma, mu + 3*sigma, 0, round(np.amax(y) + 0.1, 2)])
+    # plt.axis([mu - 3*sigma, mu + 3*sigma, 0, round(np.amax(y) + 0.01, 2)])
+    plt.axis([0, mu + 3*sigma, 0, round(np.amax(y) + 0.02, 2)])
+
     plt.grid(True)
 
     plt.show()
