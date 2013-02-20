@@ -52,15 +52,20 @@ def graph_moves(swerves, straights):
         tl.set_visible(False)
     
     # calculate realistic histogram scale
-    z = (len(x)/10)
+    z = (len(x)/20)
     z -= z % -5
     z = round(z, (len(str(z)) - 1) * -1)
-    axHistx.set_yticks([0, z, z*2])
+    if z < 1:
+        z = 1.5
+
+    ticks = [0, z*.5, z, z*1.5, z*2]
+
+    axHistx.set_yticks(ticks)
 
     #axHisty.axis["left"].major_ticklabels.set_visible(False)
     for tl in axHisty.get_yticklabels():
         tl.set_visible(False)
-    axHisty.set_xticks([0, z, z*2])
+    axHisty.set_xticks(ticks)
 
     plt.draw()
     plt.show()
@@ -76,7 +81,7 @@ def graph_payoffs(payoffs, population):
     bins =  population/20
     if bins < 10:
         bins = 10
-    n, bins, patches = plt.hist(payoffs, bins, normed=1, facecolor='blue', alpha=0.65)
+    n, bins, patches = plt.hist(payoffs, bins, normed=1, facecolor='green', alpha=0.65)
 
     # add a 'best fit' line
     y = mlab.normpdf(bins, mu, sigma)
