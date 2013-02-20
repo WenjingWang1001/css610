@@ -1,3 +1,15 @@
+### Source
+Author: Jacqueline Kazil </br>
+Course: CSS 610  </br>
+Date: 02/19/2013  </br>
+Assignment: Homework #4: Games in a Population of ZI Agents
+
+### Instructions to run
+* requires Python 2.7.3
+* Install requirements.txt
+* test-code ipython notebook has a striped down sample set up.
+
+### Homework assigment
 CSS 610
 Do all 3 parts
 Homework #4: Games in a Population of ZI Agents
