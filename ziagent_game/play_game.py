@@ -5,13 +5,12 @@ from ziagent_game.agents import Agent
 from ziagent_game.game import Game
 from ziagent_game.common import *
 
-
-
-def setup_world(nagents=nagents):
-    for x in range(1,nagents):
-        Agent()
-    #Return all Agent objects
-    return Agent().instances
+def setup_world(nagents, memory):
+    Agent.instances = []
+    agents = []
+    for x in range(0,nagents):
+        agents.append(Agent(memory))
+    return agents
 
 def create_matchups(players):
     """ """
@@ -26,41 +25,17 @@ def create_matchups(players):
     return game_matches
 
 def play_games(agents):
-    matchups = create_matchups(agents.keys())
+    games = []
+    matchups = create_matchups(agents)
     for m in matchups:
-        game_agents = (agents[m[0]], agents[m[1]])
-        Game(game_agents)
-    return Game.instances
+        games.append(Game(m))
+    return games
 
-def parse_args():
-    """ 
-    Create or parse commandline arguments.
-    """
-    description = """ 
-                    # TODO
-                  """
-    parser = arg.ArgumentParser(description=description)
-    parser.add_argument('-a', type=int, dest='agents', default=nagents, 
-                        help='Number of agents.')
-    return parser.parse_args()
+def run(nagents, nruns, memory):
+    agents = setup_world(nagents, memory)
 
-def main(nagents):
-    agents = setup_world(nagents)
-
-    for x in range(100):
+    for x in range(nruns):
         games = play_games(agents)
 
-        counter = 0
-        for k,v in agents.iteritems():
-            if v.total_payoff > 1:
-                print k, v.total_payoff
-            counter +=1
-
-        # for k,v in games.iteritems():
-        #     if counter < 5:
-        #         print k, v
-        #     counter += 1
-
-if __name__ == '__main__':
-    args = parse_args()
-    main(args.agents)
+    for a in agents:
+        a.update_agent_values()
