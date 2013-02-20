@@ -100,4 +100,4 @@ class Agent(object):
 
     def get_id(self):
         'Generats id for the agent.'
-         self.id = get_id(self.__class__)
+        self.id = get_id(self.__class__)
