@@ -1,7 +1,6 @@
 import random as r
 from collections import defaultdict
 
-
 from ziagent_game.common import *
 
 
@@ -12,6 +11,9 @@ class Agent(object):
         id
         total payoff -- winnings from all games
         games played -- list of game id, move, payoff
+        the number of times they swerved
+        the number of times they stayed straight
+        T/F if the agent is in a rut
     """
     instances = []
 
@@ -32,6 +34,7 @@ class Agent(object):
         return 'agent %s: total_payoff %s, games_played %s' % values
 
     def am_i_in_a_rut(self):
+        'Checks to see if the agent is in a rut.'
         n = self.memory*2
         if len(self.games_played) > n:
             games_to_consider = self.games_played[-10:]
@@ -44,6 +47,12 @@ class Agent(object):
                 self.rut = False
 
     def generate_move(self):
+        """
+        Generates move for the agent based off of:
+        * memory
+        * agent's rut status
+        * number of games played
+        """
         self.move = None
 
         if not self.rut:
@@ -82,6 +91,7 @@ class Agent(object):
         return self.move
 
     def update_agent_values(self):
+        'Updates values for agent at the end of the runs.'
         self.__class__.instances.append((self.id, self.memory, 
                                          self.swerve, self.straight, 
                                          self.total_payoff, 
@@ -89,4 +99,5 @@ class Agent(object):
     
 
     def get_id(self):
+        'Generats id for the agent.'
          self.id = get_id(self.__class__)

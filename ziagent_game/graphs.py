@@ -4,9 +4,12 @@ import matplotlib.pyplot as plt
 
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
+
 def graph_moves(swerves, straights):
 
     """
+    Graphs swerve moves by agent vs straights
+
     Motified code from: 
     http://matplotlib.org/examples/axes_grid/scatter_hist.html
     """
@@ -71,6 +74,11 @@ def graph_moves(swerves, straights):
     plt.show()
 
 def graph_payoffs(payoffs, population):
+    """
+    Graphs the distrubtion & probability of the total
+    payoffs for all agents.
+    """
+
     p_array = np.array(payoffs)
     mu = np.mean(payoffs)
     sigma = np.std(payoffs)

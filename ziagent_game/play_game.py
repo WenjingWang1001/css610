@@ -5,7 +5,9 @@ from ziagent_game.agents import Agent
 from ziagent_game.game import Game
 from ziagent_game.common import *
 
+
 def setup_world(nagents, memory):
+    'Empties agent instances & creates new agents as specified.'
     Agent.instances = []
     agents = []
     for x in range(0,nagents):
@@ -13,7 +15,7 @@ def setup_world(nagents, memory):
     return agents
 
 def create_matchups(players):
-    """ """
+    'Creates matchups for a game by randomizing players.'
     l = players
     # Randomly shuffle agents
     r.shuffle(l)
@@ -25,6 +27,7 @@ def create_matchups(players):
     return game_matches
 
 def play_games(agents):
+    'Plays games for one tick.'
     games = []
     matchups = create_matchups(agents)
     for m in matchups:
@@ -32,6 +35,14 @@ def play_games(agents):
     return games
 
 def run(nagents, nruns, memory):
+    """
+    This is main function of the model & executes the following:
+    * Sets up a new world with nagents that have a memory of memory. 
+    * Plays nruns games.
+
+    example: 100 agents, play 10 games, and have a memory of 2 games
+    run(100, 10, 2)
+    """
     agents = setup_world(nagents, memory)
 
     for x in range(nruns):
