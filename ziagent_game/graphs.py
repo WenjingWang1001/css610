@@ -10,6 +10,7 @@ def graph_moves(swerves, straights):
     Motified code from: 
     http://matplotlib.org/examples/axes_grid/scatter_hist.html
     """
+    print 'Swerves (x-axis) to Straights (y-axis)'
     x = swerves
     y = straights
 
