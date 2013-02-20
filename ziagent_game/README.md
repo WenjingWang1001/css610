@@ -1,11 +1,8 @@
 ### Source
 
 Author: Jacqueline Kazil
-
-Course: CSS 610  
-
-Date: 02/19/2013  
-
+Course: CSS 610
+Date: 02/19/2013
 Assignment: Homework #4: Games in a Population of ZI Agents
 
 ### Instructions to run
