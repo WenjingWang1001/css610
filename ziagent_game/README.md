@@ -8,7 +8,18 @@ Assignment: Homework #4: Games in a Population of ZI Agents
 ### Instructions to run
 * requires Python 2.7.3
 * Install requirements.txt
-* test-code ipython notebook has a striped down sample set up.
+* test-code ipython notebook has an extended sample set up.
+
+```python
+import numpy as np
+
+from ziagent_game import play_game
+from ziagent_game.agents import Agent
+from ziagent_game.graphs import graph_moves, graph_payoffs
+
+def run_and_graph(p, r, m, g_type):
+    play_game.run(players, rounds, memory)
+```
 
 ### Original assigment
 CSS 610
