@@ -33,18 +33,30 @@ class Agent(object):
         values = (self.id, self.total_payoff, len(self.games_played))
         return 'agent %s: total_payoff %s, games_played %s' % values
 
-    def am_i_in_a_rut(self):
-        'Checks to see if the agent is in a rut.'
+    def am_i_in_a_rut(self, rut_percentage=100):
+        """
+            Checks to see if the agent is in a rut.
+            First it looks at n games that is twice the memory.
+            Then it pulls out the dominate strategy. 
+            Then finds out what percentage that strategy is played.
+            If that is greater than the rut_percentage, then the agent
+            is in a rut.
+        """
         n = self.memory*2
         if len(self.games_played) > n:
-            games_to_consider = self.games_played[-10:]
+            games_to_consider = self.games_played[-n:]
             moves = []
             for g in games_to_consider:
                 moves.append(g[1])
-            if len(set(moves)) == 1:
+
+            # Find # of games used to play dominate strategy
+            d = max(moves.count(0),move.count(1))
+            if d/len(moves)*100 > rut_percentage:
                 self.rut = True
             else:
                 self.rut = False
+        else:
+            self.rut = False
 
     def generate_move(self):
         """
@@ -54,6 +66,7 @@ class Agent(object):
         * number of games played
         """
         self.move = None
+        self.am_i_in_a_rut()
 
         if not self.rut:
             # We don't take memory into consideration until player 
@@ -78,15 +91,15 @@ class Agent(object):
                     self.move = move_choices[1]
                 # If we are here, then swerve & straight are the same
 
-            if not self.move:
-                self.move = r.choice(move_choices)
+        if not self.move:
+            self.move = r.choice(move_choices)
 
-            # Add to swerve / straight counts to determine what 
-            # route the agent is playing. 
-            if self.move == move_choices[0]:
-                self.swerve += 1
-            else:
-                self.straight += 1
+        # Add to swerve / straight counts to determine what 
+        # route the agent is playing. 
+        if self.move == move_choices[0]:
+            self.swerve += 1
+        else:
+            self.straight += 1
 
         return self.move
 

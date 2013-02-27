@@ -51,6 +51,7 @@ class Game(object):
         self.a2_move = self.a2.generate_move()
 
         for pay in payoffs:
+
             if (self.a1_move[1], self.a2_move[1]) == pay[0]:
                 a1_pay = self.a1_pay = pay[1][0]
                 a2_pay = self.a2_pay = pay[1][1]
