@@ -2,7 +2,7 @@
 This file is used to store default settings.
 '''
 
-__all__ = ['nagents', 'move_choices', 'get_id', 'payoffs']
+__all__ = ['nagents', 'move_choices', 'get_id', 'payoffs', 'TimeTick']
 
 # default number of agents
 nagents = 100
@@ -29,3 +29,25 @@ def get_id(obj_class):
         return last_id + 1
     except (AttributeError, IndexError) as e:
         return 1
+
+class TimeTick(object):
+    """
+        Object class that keeps track of the time.
+    """
+
+    now = 0
+
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.current = 0
+        self.update_now()
+
+    def update_now(self):
+        'Updates now value.'
+        self.__class__.now = self.current
+
+    def inc_time(self):
+        'Increases time'
+        self.current += 1
+        self.update_now()

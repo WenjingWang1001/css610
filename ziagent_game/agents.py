@@ -3,7 +3,6 @@ from collections import defaultdict
 
 from ziagent_game.common import *
 
-
 class Agent(object):
     """
     Object class for agents.
@@ -17,7 +16,7 @@ class Agent(object):
     """
     instances = []
 
-    def __init__(self, memory=0):
+    def __init__(self, memory=0, rut_percentage=100):
         self.total_payoff = 0
         self.games_played = []
 
@@ -25,6 +24,7 @@ class Agent(object):
         self.swerve = 0
         self.straight = 0
         self.rut = False
+        self.rut_percentage = rut_percentage
 
         self.get_id()
 
@@ -33,7 +33,7 @@ class Agent(object):
         values = (self.id, self.total_payoff, len(self.games_played))
         return 'agent %s: total_payoff %s, games_played %s' % values
 
-    def am_i_in_a_rut(self, rut_percentage=100):
+    def am_i_in_a_rut(self, rut_percentage):
         """
             Checks to see if the agent is in a rut.
             First it looks at n games that is twice the memory.
@@ -42,15 +42,18 @@ class Agent(object):
             If that is greater than the rut_percentage, then the agent
             is in a rut.
         """
-        n = self.memory*2
-        if len(self.games_played) > n:
-            games_to_consider = self.games_played[-n:]
+        if self.memory == 0 or not rut_percentage:
+            self.rut == False
+            return
+
+        if TimeTick.now > self.memory*2:       
+            games_to_consider = self.games_played[-self.memory*2:]
             moves = []
             for g in games_to_consider:
                 moves.append(g[1])
 
             # Find # of games used to play dominate strategy
-            d = max(moves.count(0),move.count(1))
+            d = max(moves.count(0),moves.count(1))
             if d/len(moves)*100 > rut_percentage:
                 self.rut = True
             else:
@@ -66,7 +69,7 @@ class Agent(object):
         * number of games played
         """
         self.move = None
-        self.am_i_in_a_rut()
+        self.am_i_in_a_rut(self.rut_percentage)
 
         if not self.rut:
             # We don't take memory into consideration until player 

@@ -15,13 +15,14 @@ class Game(object):
     """
     instances = {}
 
-    def __init__(self, players):
+    def __init__(self, players, time):
         self.a1 = players[0]
         self.a2 = players[1]
         self.a1_move = None
         self.a2_move = None
         self.a1_pay = None
         self.a2_pay = None
+        self.time = time
 
         self.get_id()
         self.play(players)
